@@ -41,9 +41,9 @@ for line in source:
 		
 		elif(char=='.'): 
 			data+='.'
-			output.write("push edx\n")
-			output.write(f'	mov ebx, [edx]			;.\n')
-			output.write(f'	mov [temp], ecx\n')
+			output.write("push edx			;.\n")
+			output.write(f'	mov ebx, [edx]\n')
+			output.write(f'	mov [temp], ebx\n')
 			output.write("	add word [temp], '0'\n")
 			output.write(f'	mov ecx, temp\n')
 			output.write(f'	mov edx, 1\n')
@@ -73,9 +73,8 @@ for line in source:
 		
 		elif(char==']'): 
 			output.write(f'	mov ecx, [edx]					;]\n')
-
 			output.write(f'	cmp ecx, 00\n')
-			output.write(f'	je .con{loop[-1]}\n')
+			output.write(f'	jz .con{loop[-1]}\n')
 			output.write(f'	jmp .{loop[-1]}\n')
 			output.write(f'.con{loop.pop()}:\n')
 			data+=']'
@@ -87,7 +86,7 @@ output.write("section	.data\n")
 output.write("	global x\n")
 output.write("	x times 3000 db 0\n")
 output.write("	arraylen equ($ -x)/4\n")
-output.write("	zero dd 0\n")
+output.write("	zero db 0\n")
 output.write("	msg db 'a', 0xa\n")
 output.write(" temp db 0\n")
 output.write("section	.bss\n")
