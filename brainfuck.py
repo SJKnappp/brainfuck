@@ -41,10 +41,10 @@ for line in source:
 		
 		elif(char=='.'): 
 			data+='.'
-			output.write("push edx			;.\n")
+			output.write("	push edx			;.\n")
 			output.write(f'	mov ebx, [edx]\n')
 			output.write(f'	mov [temp], ebx\n')
-			output.write("	add word [temp], '0'\n")
+		#	output.write("	add word [temp], '0'\n")
 			output.write(f'	mov ecx, temp\n')
 			output.write(f'	mov edx, 1\n')
 			output.write(f'	mov ebx, 1\n')
@@ -55,7 +55,7 @@ for line in source:
 		
 		elif(char==','): 
 			data+=','
-			output.write("push edx			;,\n")
+			output.write("	push edx			;,\n")
 			output.write(f'	mov ecx, input\n')
 			output.write(f'	mov edx, 1\n')
 			output.write(f'	mov ebx, 5\n')
@@ -66,17 +66,17 @@ for line in source:
 			output.write(f'	mov [edx], ecx\n')
 		
 		elif(char=='['): 
-			output.write(f'.loop{str(opened)}: 				;[\n')
+			output.write(f'	.loop{str(opened)}: 				;[\n')
 			loop.append("loop"+str(opened))
 			data+='['
 			opened+=1
 		
 		elif(char==']'): 
-			output.write(f'	mov ecx, [edx]					;]\n')
-			output.write(f'	cmp ecx, 00\n')
-			output.write(f'	jz .con{loop[-1]}\n')
+			output.write(f'	mov al, [edx]					;]\n')
+			output.write(f'	cmp byte [zero], al\n')
+			output.write(f'	je .con{loop[-1]}\n')
 			output.write(f'	jmp .{loop[-1]}\n')
-			output.write(f'.con{loop.pop()}:\n')
+			output.write(f'	.con{loop.pop()}:\n')
 			data+=']'
 
 #end file
