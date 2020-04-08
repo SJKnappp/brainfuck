@@ -29,13 +29,13 @@ for line in source:
 		
 		elif(char=='+'): 
 			data+='+'
-			output.write(f'	mov ecx, [edx]			;+\n')
+			output.write(f'	mov ecx, [edx]			;+\n')			#increases value at pointer
 			output.write(f'	inc ecx\n')
 			output.write(f'	mov [edx], ecx\n')
 		
 		elif(char=='-'): 
 			data+='-'
-			output.write(f'	mov ecx, [edx]			;-\n')
+			output.write(f'	mov ecx, [edx]			;-\n')			#decreases value at pointer
 			output.write(f'	dec ecx\n')
 			output.write(f'	mov [edx], ecx\n')
 		
@@ -58,11 +58,15 @@ for line in source:
 			output.write("	push edx			;,\n")
 			output.write(f'	mov ecx, input\n')
 			output.write(f'	mov edx, 1\n')
-			output.write(f'	mov ebx, 5\n')
+			output.write(f'	mov ebx, 0\n')
 			output.write(f'	mov eax, 3\n')
 			output.write(f'	int 0x80\n')
+			output.write(f'	mov edx, 1\n')
+			output.write(f'	mov ebx, 1\n')
+			output.write(f'	mov eax, 4\n')
+			output.write(f'	int 0x80\n')
 			output.write(f'	pop edx\n')
-			#output.write(f'	mov ecx, input')
+			output.write(f'	mov ecx, [input]\n')
 			output.write(f'	mov [edx], ecx\n')
 		
 		elif(char=='['): 
@@ -90,7 +94,7 @@ output.write("	zero db 0\n")
 output.write("	msg db 'a', 0xa\n")
 output.write(" temp db 0\n")
 output.write("section	.bss\n")
-output.write("input resb 5")
+output.write("input resb 1")
 
 
 output

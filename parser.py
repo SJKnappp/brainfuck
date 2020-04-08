@@ -8,7 +8,7 @@ def parser(source):
 		if(char=='<'): 
 			pos-=1
 			if(pos<0): 
-				print('unable to go tp mem address < 0')
+				print('failed: unable to go tp mem address < 0')
 				quit
 
 		elif(char=='>'): pos+=1
@@ -23,7 +23,7 @@ def parser(source):
 				
 
 	if (open!=0):
-		print(f'there are {open} open brackets')
+		print(f'failed: there are {open} open brackets')
 		quit
 
 
