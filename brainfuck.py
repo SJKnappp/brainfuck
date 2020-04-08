@@ -19,28 +19,25 @@ data=""
 for line in source:
 	line=line.strip()
 	for char in line:
+		data += char
+
 		if(char=='<'): 
-			data+='<'
 			output.write(f'	dec edx			;<\n')					#increments the pointer position
 		
 		elif(char=='>'): 
-			data+='>'
 			output.write(f'	inc edx			;>\n')					#decrements the pointer position
 		
 		elif(char=='+'): 
-			data+='+'
 			output.write(f'	mov ecx, [edx]			;+\n')			#increases value at pointer
 			output.write(f'	inc ecx\n')
 			output.write(f'	mov [edx], ecx\n')
 		
 		elif(char=='-'): 
-			data+='-'
 			output.write(f'	mov ecx, [edx]			;-\n')			#decreases value at pointer
 			output.write(f'	dec ecx\n')
 			output.write(f'	mov [edx], ecx\n')
 		
 		elif(char=='.'): 
-			data+='.'
 			output.write("	push edx			;.\n")
 			output.write(f'	mov ebx, [edx]\n')
 			output.write(f'	mov [temp], ebx\n')
@@ -54,7 +51,6 @@ for line in source:
 
 		
 		elif(char==','): 
-			data+=','
 			output.write("	push edx			;,\n")
 			output.write(f'	mov ecx, input\n')
 			output.write(f'	mov edx, 1\n')
@@ -68,7 +64,6 @@ for line in source:
 		elif(char=='['): 
 			output.write(f'	.loop{str(opened)}: 				;[\n')
 			loop.append("loop"+str(opened))
-			data+='['
 			opened+=1
 		
 		elif(char==']'): 
@@ -77,7 +72,9 @@ for line in source:
 			output.write(f'	je .con{loop[-1]}\n')
 			output.write(f'	jmp .{loop[-1]}\n')
 			output.write(f'	.con{loop.pop()}:\n')
-			data+=']'
+		
+		else:
+			data = data[:-1]
 
 #end file
 output.write("	mov eax, 1\n")
